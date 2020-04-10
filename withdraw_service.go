@@ -91,8 +91,8 @@ func (s *ListWithdrawsService) EndTime(endTime int64) *ListWithdrawsService {
 // Do send request
 func (s *ListWithdrawsService) Do(ctx context.Context) (withdraws []*Withdraw, err error) {
 	r := &request{
-		method:   "POST",
-		endpoint: "/wapi/v1/getWithdrawHistory.html",
+		method:   "GET",
+		endpoint: "/wapi/v3/withdrawHistory.html",
 		secType:  secTypeSigned,
 	}
 	if s.asset != nil {
@@ -127,12 +127,13 @@ type WithdrawHistoryResponse struct {
 
 // Withdraw define withdraw info
 type Withdraw struct {
-	Amount    float64 `json:"amount"`
-	Address   string  `json:"address"`
-	Asset     string  `json:"asset"`
-	TxID      string  `json:"txId"`
-	ApplyTime int64   `json:"applyTime"`
-	Status    int     `json:"status"`
+	Amount         float64 `json:"amount"`
+	TransactionFee float64 `json:"transactionFee"`
+	Address        string  `json:"address"`
+	Asset          string  `json:"asset"`
+	TxID           string  `json:"txId"`
+	ApplyTime      int64   `json:"applyTime"`
+	Status         int     `json:"status"`
 }
 
 // GetWithdrawFeeService get withdraw fee
