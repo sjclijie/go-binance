@@ -61,6 +61,56 @@ type TransactionResponse struct {
 	TranID int64 `json:"tranId"`
 }
 
+type ListMarginTransferService struct {
+	c         *Client
+	size      *int64
+	startTime *int64
+}
+
+func (s *ListMarginTransferService) Size(size int64) *ListMarginTransferService {
+	s.size = &size
+	return s
+}
+
+// Do send request
+func (s *ListMarginTransferService) Do(ctx context.Context, opts ...RequestOption) (res *MarginTransferResponse, err error) {
+	r := &request{
+		method:   "GET",
+		endpoint: "/sapi/v1/margin/transfer",
+		secType:  secTypeSigned,
+	}
+	if s.size != nil {
+		r.setParam("size", *s.size)
+	}
+	if s.startTime != nil {
+		r.setParam("startTime", *s.startTime)
+	}
+	res = new(MarginTransferResponse)
+	data, err := s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, res)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+type MarginTransferResponse struct {
+	Rows  []MarginTransfer `json:"rows"`
+	Total int64            `json:"total"`
+}
+
+type MarginTransfer struct {
+	Amount       string `json:"amount"`
+	Asset        string `json:"asset"`
+	Status       string `json:"status"`
+	Timestamp    int64  `json:"timestamp"`
+	TxId         int64  `json:"txId"`
+	TransferType string `json:"type"`
+}
+
 // MarginLoanService apply for a loan
 type MarginLoanService struct {
 	c      *Client

@@ -439,6 +439,10 @@ func (c *Client) NewMarginTransferService() *MarginTransferService {
 	return &MarginTransferService{c: c}
 }
 
+func (c *Client) NewListMarginTransferService() *ListMarginTransferService {
+	return &ListMarginTransferService{c: c}
+}
+
 // NewMarginLoanService init margin account loan service
 func (c *Client) NewMarginLoanService() *MarginLoanService {
 	return &MarginLoanService{c: c}
