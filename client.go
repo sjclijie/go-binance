@@ -458,8 +458,8 @@ func (c *Client) NewCreateMarginOrderService() *ListMarginInterestService {
 	return &ListMarginInterestService{c: c}
 }
 
-func (c *Client) NewListMarginInterestService() {
-
+func (c *Client) NewListMarginInterestService() *ListMarginInterestService {
+	return &ListMarginInterestService{c: c}
 }
 
 // NewCancelMarginOrderService init cancel order service
