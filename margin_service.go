@@ -65,10 +65,21 @@ type ListMarginTransferService struct {
 	c         *Client
 	size      *int64
 	startTime *int64
+	endTime   *int64
 }
 
 func (s *ListMarginTransferService) Size(size int64) *ListMarginTransferService {
 	s.size = &size
+	return s
+}
+
+func (s *ListMarginTransferService) StartTime(startTime int64) *ListMarginTransferService {
+	s.startTime = &startTime
+	return s
+}
+
+func (s *ListMarginTransferService) EndTime(endTime int64) *ListMarginTransferService {
+	s.endTime = &endTime
 	return s
 }
 
@@ -84,6 +95,9 @@ func (s *ListMarginTransferService) Do(ctx context.Context, opts ...RequestOptio
 	}
 	if s.startTime != nil {
 		r.setParam("startTime", *s.startTime)
+	}
+	if s.endTime != nil {
+		r.setParam("endTime", *s.endTime)
 	}
 	res = new(MarginTransferResponse)
 	data, err := s.c.callAPI(ctx, r, opts...)
