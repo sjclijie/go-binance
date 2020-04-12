@@ -406,6 +406,81 @@ type MarginRepay struct {
 	TxID      int64                 `json:"txId"`
 }
 
+type ListMarginInterestService struct {
+	c         *Client
+	asset     string
+	startTime *int64
+	endTime   *int64
+	size      *int64
+}
+
+// Asset set asset
+func (s *ListMarginInterestService) Asset(asset string) *ListMarginInterestService {
+	s.asset = asset
+	return s
+}
+
+// StartTime set start time
+func (s *ListMarginInterestService) StartTime(startTime int64) *ListMarginInterestService {
+	s.startTime = &startTime
+	return s
+}
+
+// EndTime set end time
+func (s *ListMarginInterestService) EndTime(endTime int64) *ListMarginInterestService {
+	s.endTime = &endTime
+	return s
+}
+
+// Size default:10 max:100
+func (s *ListMarginInterestService) Size(size int64) *ListMarginInterestService {
+	s.size = &size
+	return s
+}
+
+// Do send request
+func (s *ListMarginInterestService) Do(ctx context.Context, opts ...RequestOption) (res *MarginInterestResponse, err error) {
+	r := &request{
+		method:   "GET",
+		endpoint: "/sapi/v1/margin/interestHistory",
+		secType:  secTypeSigned,
+	}
+	r.setParam("asset", s.asset)
+	if s.startTime != nil {
+		r.setParam("startTime", *s.startTime)
+	}
+	if s.endTime != nil {
+		r.setParam("endTime", *s.endTime)
+	}
+	if s.size != nil {
+		r.setParam("size", *s.size)
+	}
+	data, err := s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+	res = new(MarginInterestResponse)
+	err = json.Unmarshal(data, res)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+type MarginInterestResponse struct {
+	Rows  []MarginInterest `json:"rows"`
+	Total int64            `json:"total"`
+}
+
+type MarginInterest struct {
+	Asset               string `json:"asset"`
+	Interest            string `json:"interest"`
+	InterestRate        string `json:"interestRate"`
+	Principal           string `json:"principal"`
+	InterestAccuredTime int64  `json:"interestAccuredTime"`
+	InterestType        string `json:"type"`
+}
+
 // GetMarginAccountService get margin account info
 type GetMarginAccountService struct {
 	c *Client
