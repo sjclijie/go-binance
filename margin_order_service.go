@@ -356,12 +356,22 @@ func (s *ListMarginOrdersService) Do(ctx context.Context, opts ...RequestOption)
 
 // MarginAllOrder define item of margin all orders
 type MarginAllOrder struct {
-	ID            int64  `json:"id"`
-	Price         string `json:"price"`
-	Quantity      string `json:"qty"`
-	QuoteQuantity string `json:"quoteQty"`
-	Symbol        string `json:"symbol"`
-	Time          int64  `json:"time"`
+	OrderId                  int64           `json:"orderId"`
+	ClientOrderId            string          `json:"clientOrderId"`
+	CummulativeQuoteQuantity string          `json:"cummulativeQuoteQty"`
+	ExecutedQuantity         string          `json:"executedQty"`
+	IcebergQuantity          string          `json:"icebergQty"`
+	IsWorking                bool            `json:"isWorking"`
+	OrigQuantity             string          `json:"origQty"`
+	Price                    string          `json:"price"`
+	Side                     SideType        `json:"side"`
+	Status                   OrderStatusType `json:"status"`
+	StopPrice                string          `json:"stopPrice"`
+	Symbol                   string          `json:"symbol"`
+	TimeInForce              TimeInForceType `json:"timeInForce"`
+	Time                     int64           `json:"time"`
+	OrderType                OrderType       `json:"type"`
+	UpdateTime               int64           `json:"updateTime"`
 }
 
 // CancelMarginOrderResponse define response of canceling order
