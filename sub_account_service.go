@@ -29,7 +29,7 @@ func (s *ListSubAccountService) Do(ctx context.Context) (*ListSubAccountResponse
 }
 
 type ListSubAccountResponse struct {
-	Success     string        `json:"success"`
+	Success     bool          `json:"success"`
 	SubAccounts []*SubAccount `json:"subAccounts"`
 }
 
