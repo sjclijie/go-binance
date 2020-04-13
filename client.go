@@ -564,3 +564,12 @@ func (c *Client) NewListLendingProductService() *ListLendingProductService {
 func (c *Client) NewLendingPositionService() *LendingPositionService {
 	return &LendingPositionService{c: c}
 }
+
+// sub-account api
+func (c *Client) NewListSubAccountService() *ListSubAccountService {
+	return &ListSubAccountService{c: c}
+}
+
+func (c *Client) NewSubAccountAssetsService() *SubAccountAssetsService {
+	return &SubAccountAssetsService{c: c}
+}
