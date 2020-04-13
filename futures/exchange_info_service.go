@@ -26,7 +26,6 @@ func (s *ExchangeInfoService) Do(ctx context.Context, opts ...RequestOption) (re
 	if err != nil {
 		return nil, err
 	}
-
 	return res, nil
 }
 

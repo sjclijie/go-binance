@@ -556,3 +556,7 @@ func (c *Client) NewFuturesTransferService() *FuturesTransferService {
 func (c *Client) NewListFuturesTransferService() *ListFuturesTransferService {
 	return &ListFuturesTransferService{c: c}
 }
+
+func (c *Client) NewListLendingProductService() *ListLendingProductService {
+	return &ListLendingProductService{c: c}
+}
