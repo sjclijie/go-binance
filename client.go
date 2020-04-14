@@ -573,3 +573,11 @@ func (c *Client) NewListSubAccountService() *ListSubAccountService {
 func (c *Client) NewSubAccountAssetsService() *SubAccountAssetsService {
 	return &SubAccountAssetsService{c: c}
 }
+
+func (c *Client) NewSubAccountMarginService() *SubAccountMarginService {
+	return &SubAccountMarginService{c: c}
+}
+
+func (c *Client) NewSubAccountFuturesService() *SubAccountFuturesService {
+	return &SubAccountFuturesService{c: c}
+}
