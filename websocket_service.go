@@ -12,9 +12,9 @@ var (
 	baseFutureURL   = "wss://fstream.binance.com/ws"
 	combinedBaseURL = "wss://stream.binance.com:9443/stream?streams="
 	// WebsocketTimeout is an interval for sending ping/pong messages if WebsocketKeepalive is enabled
-	WebsocketTimeout = time.Second * 60
+	WebsocketTimeout = time.Second * 40
 	// WebsocketKeepalive enables sending ping/pong messages to check the connection stability
-	WebsocketKeepalive = false
+	WebsocketKeepalive = true
 )
 
 // WsPartialDepthEvent define websocket partial depth book event
