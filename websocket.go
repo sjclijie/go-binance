@@ -19,7 +19,7 @@ type WsConfig struct {
 	WebsocketKeepalive bool
 }
 
-func newWsConfig(endpoint string) *WsConfig {
+func NewWsConfig(endpoint string) *WsConfig {
 	return &WsConfig{
 		Endpoint:           endpoint,
 		WebsocketKeepalive: true,
@@ -27,7 +27,7 @@ func newWsConfig(endpoint string) *WsConfig {
 	}
 }
 
-var wsServe = func(cfg *WsConfig, handler WsHandler, errHandler ErrHandler) (doneC, stopC chan struct{}, err error) {
+var WsServe = func(cfg *WsConfig, handler WsHandler, errHandler ErrHandler) (doneC, stopC chan struct{}, err error) {
 	c, _, err := websocket.DefaultDialer.Dial(cfg.Endpoint, nil)
 	if err != nil {
 		return nil, nil, err
