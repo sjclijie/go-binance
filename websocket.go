@@ -14,12 +14,16 @@ type ErrHandler func(err error)
 
 // WsConfig webservice configuration
 type WsConfig struct {
-	Endpoint string
+	Endpoint           string
+	WebsocketTimeout   time.Duration
+	WebsocketKeepalive bool
 }
 
 func newWsConfig(endpoint string) *WsConfig {
 	return &WsConfig{
-		Endpoint: endpoint,
+		Endpoint:           endpoint,
+		WebsocketKeepalive: true,
+		WebsocketTimeout:   40 * time.Second,
 	}
 }
 
@@ -38,8 +42,8 @@ var wsServe = func(cfg *WsConfig, handler WsHandler, errHandler ErrHandler) (don
 			}
 		}()
 		defer close(doneC)
-		if WebsocketKeepalive {
-			keepAlive(c, WebsocketTimeout)
+		if cfg.WebsocketKeepalive {
+			keepAlive(c, cfg.WebsocketTimeout)
 		}
 
 		for {
